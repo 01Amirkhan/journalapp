@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-k8s-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: spring-boot-k8s
+  template:
+    metadata:
+      labels:
+        app: spring-boot-k8s
+    spec:
+      containers:
+        - name: spring-boot-k8s
+          image: 01amir/journalapp:0.0.1-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8082
+
+
+
+
+
+              apiVersion: v1
+              kind: Service
+              metadata:
+                name: spring-boot-k8s-service
+              spec:
+                type: NodePort          # Use LoadBalancer on cloud, NodePort for local testing
+                selector:
+                  app: spring-boot-k8s  # Must match the label in Deployment
+                ports:
+                  - protocol: TCP
+                    port: 8082          # Port inside the cluster
+                    targetPort: 8082    # Port your container listens on
+                    nodePort:    # External port you can access via node IP
+
