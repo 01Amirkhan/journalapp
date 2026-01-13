@@ -28,11 +28,11 @@ spec:
               metadata:
                 name: spring-boot-k8s-service
               spec:
-                type: NodePort          # Use LoadBalancer on cloud, NodePort for local testing
+                type: NodePort
                 selector:
-                  app: spring-boot-k8s  # Must match the label in Deployment
+                  app: spring-boot-k8s
                 ports:
                   - protocol: TCP
-                    port: 8082          # Port inside the cluster
-                    targetPort: 8082    # Port your container listens on
-                    nodePort: 30082     # External port (must be 30000-32767)
+                    port: 8082
+                    targetPort: 8082
+                    nodePort: 30082
